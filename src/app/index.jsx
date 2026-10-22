@@ -2,9 +2,11 @@ import { Link } from 'expo-router';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { llocs } from '../data/llocs';
+import { useLlocs } from '../data/LlocsContext';
 
 export default function Home() {
+  const { llocs } = useLlocs();
+
   return (
     <SafeAreaView style={styles.pantalla} edges={['bottom', 'left', 'right']}>
       <FlatList
@@ -18,6 +20,14 @@ export default function Home() {
             <Text style={styles.descripcion}>
               Elige un lugar y descubre que lo hace especial.
             </Text>
+            <Link href="/afegir" asChild>
+              <Pressable
+                accessibilityRole="button"
+                style={({ pressed }) => [styles.botonSecundario, pressed && styles.pulsado]}
+              >
+                <Text style={styles.textoBotonSecundario}>+ Añadir sitio</Text>
+              </Pressable>
+            </Link>
           </View>
         }
         renderItem={({ item: lugar }) => (
@@ -74,6 +84,15 @@ const styles = StyleSheet.create({
     minHeight: 48,
     alignItems: 'center',
   },
+  botonSecundario: {
+    borderWidth: 1,
+    borderColor: '#234c3b',
+    borderRadius: 10,
+    padding: 14,
+    minHeight: 48,
+    alignItems: 'center',
+  },
+  textoBotonSecundario: { color: '#234c3b', fontSize: 16, fontWeight: '600' },
   pulsado: { opacity: 0.7 },
   textoBoton: { color: '#ffffff', fontSize: 16, fontWeight: '600' },
 });

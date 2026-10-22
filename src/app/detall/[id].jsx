@@ -2,10 +2,11 @@ import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { llocs } from '../../data/llocs';
+import { useLlocs } from '../../data/LlocsContext';
 
 export default function Detall() {
   const { id } = useLocalSearchParams();
+  const { llocs } = useLlocs();
   const lugar = llocs.find((lugar) => lugar.id === id);
 
   function volver() {
